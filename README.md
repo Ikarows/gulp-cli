@@ -87,6 +87,9 @@ git clone https://github.com/Ikarows/gulp-cli.git
   )
 ]
 ```
+## 集成 ejs
+
+可使用ejs语法，官方文档：[http://www.embeddedjs.com/](http://www.embeddedjs.com/)
 
 ## 使用Eslint
 config/index.js文件
