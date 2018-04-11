@@ -47,7 +47,7 @@ git clone https://github.com/Ikarows/gulp-cli.git
 │   │   ├── js        # 脚本
 │   │   ├── sprite    # 雪碧图
 │   │   └── styles    # 样式（scss, css, less）
-│   └── index.html    # 首页
+│   └── default.html  # 基础模版
 │
 ├── static            # 打包到dist中static文件中
 ├── .babelrc          # es6 编译配置文件
