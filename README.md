@@ -102,7 +102,7 @@ useEslint: false // 是否启用eslint
 
 config/index.js文件
 ```
-useWebpack: false // 是否启用webpack
+useWebpack: true // 是否启用webpack
 ```
 
 For a detailed explanation on how things work, check out the guide [gulp](https://www.gulpjs.com.cn/).
