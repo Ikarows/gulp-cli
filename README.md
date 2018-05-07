@@ -81,7 +81,7 @@ git clone https://github.com/Ikarows/gulp-cli.git
  middleware: [
   proxy.proxyPrase(
     {
-      target: 'http://v3.wufazhuce.com:8000/api',
+      target: 'http://xxx.com:8000/api',
       route: '/api'
     }
   )
