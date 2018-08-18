@@ -35,7 +35,7 @@ module.exports = {
     styles: resolveBuild('static/css'),
     script: resolveBuild('static/js'),
     images: resolveBuild('static/images'),
-    sprite: '../../../css/'
+    sprite: '../../../static/css/'
   },
 
   zip: {
