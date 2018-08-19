@@ -5,8 +5,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "gulp server",
-    "build": "cross-env NODE_ENV=production gulp build",
+    "dev": "gulp server --colors",
+    "build": "cross-env NODE_ENV=production gulp build --colors",
     "zip": "gulp zip"
   },
   "keywords": [
