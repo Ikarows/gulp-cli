@@ -10,10 +10,23 @@ const config = require('./config')
 $ = require('gulp-load-plugins')()
 
 const path = require('path')
-const chalk = require('chalk')
 const gulp = require('gulp')
 const pngquant = require('imagemin-pngquant')
 const del = require('del')
+
+const colors = require('colors');
+colors.setTheme({
+  silly: 'rainbow',
+  input: 'grey',
+  verbose: 'cyan',
+  prompt: 'grey',
+  info: 'green',
+  data: 'grey',
+  cyan: 'cyan',
+  warn: 'yellow',
+  debug: 'blue',
+  error: 'red'
+});
 
 // webpack
 const webpack = require('webpack')
@@ -50,12 +63,12 @@ function cbTask(task) {
   return new Promise((resolve, reject) => {
     del(respath('dist'))
       .then(paths => {
-        console.log(chalk.green(`
+        console.log(colors.info(`
       -----------------------------
         Clean tasks are completed
       -----------------------------`))
         $.sequence(task, () => {
-          console.log(chalk.green(`
+          console.log(colors.info(`
         -----------------------------
           All tasks are completed
         -----------------------------`))
@@ -194,7 +207,7 @@ gulp.task('server', () => {
   const task = ['html', 'styles', 'script', 'sprite', 'images', 'static']
   cbTask(task).then(() => {
     browserSync.init(config.server)
-    console.log(chalk.cyan('  Server complete.\n'))
+    console.log(colors.cyan('  Server complete.\n'))
     gulp.start('watch')
   })
 })
@@ -202,18 +215,18 @@ gulp.task('server', () => {
 gulp.task('build', () => {
   const task = ['html', 'styles', 'script', 'sprite', 'images', 'static']
   cbTask(task).then(() => {
-    console.log(chalk.cyan('  Build complete.\n'))
+    console.log(colors.cyan('  Build complete.\n'))
 
     if (config.productionZip) {
       gulp.start('zip', () => {
-        console.log(chalk.cyan('  Zip complete.\n'))
+        console.log(colors.cyan('  Zip complete.\n'))
       })
     }
   })
 })
 
 gulp.task('default', () => {
-  console.log(chalk.green(
+  console.log(colors.info(
     `
   Build Setup
     开发环境： npm run dev
