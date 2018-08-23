@@ -81,7 +81,6 @@ function cbTask(task) {
 gulp.task('html', () => {
   return gulp.src(config.dev.html)
     .pipe($.plumber(onError))
-    .pipe($.watch(config.dev.html))
     /*.pipe($.fileInclude({
       prefix: '@@',
       basepath: respath('src/include/')
@@ -113,7 +112,6 @@ gulp.task('html', () => {
 gulp.task('less', () => {
   return gulp.src(config.dev.less)
     .pipe($.plumber(onError))
-    .pipe($.watch(config.dev.less))
     .pipe($.less())
     .pipe($.if(condition, $.cleanCss({ debug: true })))
     .pipe($.postcss('./.postcssrc.js'))
@@ -123,7 +121,6 @@ gulp.task('less', () => {
 gulp.task('sass', () => {
   return gulp.src(config.dev.sass)
     .pipe($.plumber(onError))
-    .pipe($.watch(config.dev.sass))
     .pipe($.sass())
     .pipe($.if(condition, $.cleanCss({ debug: true })))
     .pipe($.postcss('./.postcssrc.js'))
@@ -137,7 +134,6 @@ gulp.task('styles', () => {
 gulp.task('images', () => {
   return gulp.src(config.dev.images)
     .pipe($.plumber(onError))
-    .pipe($.watch(config.dev.images))
     .pipe($.cache($.imagemin({
       progressive: true, // 无损压缩JPG图片
       svgoPlugins: [{ removeViewBox: false }], // 不移除svg的viewbox属性
@@ -149,7 +145,6 @@ gulp.task('images', () => {
 gulp.task('sprite', () => {
   return gulp.src(config.dev.sprite)
     .pipe($.plumber(onError))
-    .pipe($.watch(config.dev.sprite))
     .pipe($.spritesmith({  
         imgName:   'sprite.png',
         cssName:   config.build.sprite + 'sprite.css',
@@ -173,7 +168,6 @@ const useEslint = config.useEslint ? ['eslint'] : [];
 gulp.task('script', useEslint, () => {
   return gulp.src(config.dev.script)
     .pipe($.plumber(onError))
-    .pipe($.watch(config.dev.script))
     .pipe($.if(condition, $.babel({
       presets: ['env']
     })))
@@ -184,7 +178,6 @@ gulp.task('script', useEslint, () => {
 
 gulp.task('static', () => {
   return gulp.src(config.dev.static)
-  .pipe($.watch(config.dev.static))
     .pipe(gulp.dest(config.build.static))
 })
 
