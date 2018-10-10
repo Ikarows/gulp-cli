@@ -18,6 +18,9 @@ function resolveBuild(dir) {
 }
 
 module.exports = {
+  _src: "./src",
+  _static: "./static",
+
   dev: {
     static: './static/**/*',
     html: [resolveDev('/**/*.html'), '!./src/components/**/*'],
@@ -35,7 +38,7 @@ module.exports = {
     styles: resolveBuild('static/css'),
     script: resolveBuild('static/js'),
     images: resolveBuild('static/images'),
-    sprite: '../../../static/css/'
+    sprite: '../../../css/'
   },
 
   zip: {
@@ -46,6 +49,6 @@ module.exports = {
 
   server,
   useEslint: false,
-  useWebpack: true,
+  useWebpack: false,
   productionZip: false
 }

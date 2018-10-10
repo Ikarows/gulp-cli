@@ -6,13 +6,16 @@
  * Copyright (c) 2018 Daniel Eden
  */
 
-const config = require('./config')
+const config = require('./config'),
+      fs = require('fs');
+
 $ = require('gulp-load-plugins')()
 
 const path = require('path')
 const gulp = require('gulp')
 const pngquant = require('imagemin-pngquant')
 const del = require('del')
+const runSequence = require('run-sequence')
 
 const colors = require('colors');
 colors.setTheme({
@@ -109,7 +112,16 @@ gulp.task('html', () => {
     .pipe(gulp.dest(config.build.html))
 })
 
-gulp.task('less', () => {
+/* 版本号-己去除 */
+gulp.task('revHtmlCss',function(){   
+  return gulp.src([config.revCssJson,config.revCss, config.revCss]/*[config.revCssJson, config.dev.allhtml]*/)
+  .pipe($.revCollector({
+      replaceReved: true
+  }))
+  .pipe(gulp.dest(config.build.html)) //html更换css,js文件版本，更改完成之后保存的地址
+})
+
+gulp.task('less', () => { 
   return gulp.src(config.dev.less)
     .pipe($.plumber(onError))
     .pipe($.less())
@@ -163,15 +175,14 @@ gulp.task('eslint', () => {
     .pipe($.eslint.failAfterError());
 })
 
-
 const useEslint = config.useEslint ? ['eslint'] : [];
 gulp.task('script', useEslint, () => {
-  return gulp.src(config.dev.script)
-    .pipe($.plumber(onError))
-    .pipe($.if(condition, $.babel({
-      presets: ['env']
-    })))
+  gulp.src(config.dev.script)
     .pipe($.if(config.useWebpack, webpackStream(webpackConfig, webpack)))
+    .pipe($.plumber(onError))
+    .pipe($.babel({
+      presets: ['env']
+    }))
     .pipe($.if(condition, $.uglify()))
     .pipe(gulp.dest(config.build.script))
 })
@@ -188,12 +199,47 @@ gulp.task('clean', () => {
 })
 
 gulp.task('watch', () => {
-    gulp.watch(config.dev.allhtml, ['html']).on('change', reload)
-    gulp.watch([config.dev.less, config.dev.sass], ['styles']).on('change', reload)
-    gulp.watch(config.dev.script, ['script']).on('change', reload)
-    gulp.watch(config.dev.images, ['images']).on('change', reload)
-    gulp.watch(config.dev.sprite, ['sprite']).on('change', reload)
-    gulp.watch(config.dev.static, ['static']).on('change', reload)
+    //gulp.watch(config.dev.allhtml, ['html']).on('change', reload)
+    //gulp.watch([config.dev.less, config.dev.sass], ['styles']).on('change', reload)
+    //gulp.watch(config.dev.script, ['script']).on('change', reload)
+    //gulp.watch(config.dev.images, ['images']).on('change', reload)
+    //gulp.watch(config.dev.sprite, ['sprite']).on('change', reload)
+    //gulp.watch(config.dev.static, ['static']).on('change', reload)
+
+    $.watch(config.dev.allhtml, { ignoreInitial: false }, function (param) {
+      gulp.start(['html'])
+    }).on('change', reload)
+
+    $.watch(config.dev.script, { ignoreInitial: false }, function (param) {
+      gulp.start(['script'])
+    }).on('change', reload)
+
+    $.watch(config.dev.images, { ignoreInitial: false }, function (param) {
+      gulp.start(['images'])
+    }).on('change', reload)
+
+    $.watch(config.dev.sprite, { ignoreInitial: false }, function (param) {
+      gulp.start(['sprite'])
+    }).on('change', reload)
+
+    $.watch(config.dev.static, { ignoreInitial: false }, function (param) {
+      gulp.start(['static'])
+    }).on('change', reload)
+
+    $.watch([config.dev.less, config.dev.sass], { ignoreInitial: false }, function (param) {
+      gulp.start(['less','sass'])
+    }).on('change', reload)
+
+    /* 实时同步删除文件 */
+    $.watch([config._src, config._static], { ignoreInitial: false })
+      .on('unlink', function(file){
+        
+        //删除文件
+        var distFileSrc = './dist/' + path.relative(config._src, file); //计算相对路径
+        var distFileStatic = './dist/static/' + path.relative(config._static, file); //计算相对路径
+        fs.existsSync(distFileSrc) && del(distFileSrc)
+        fs.existsSync(distFileStatic) && del(distFileStatic)
+      });
 })
 
 gulp.task('zip', () => {

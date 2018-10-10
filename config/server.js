@@ -25,7 +25,7 @@ module.exports = {
   // 运行后自动打开的；浏览器 （不填默认则是系统设置的默认浏览器）
   browser: ['chrome'],
   // 自动打开浏览器
-  open: true,
+  open: false,
   // 使用端口`
   port: '8080',
   //是否开启提示
