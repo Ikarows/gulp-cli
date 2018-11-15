@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "gulp server --colors",
     "build": "cross-env NODE_ENV=production gulp build --colors",
+    "upload": "gulp upload",
     "zip": "gulp zip"
   },
   "keywords": [
@@ -42,6 +43,7 @@
     "gulp-ejs": "^3.1.1",
     "gulp-eslint": "^4.0.0",
     "gulp-file-include": "^2.0.0",
+    "gulp-ftp": "^1.1.0",
     "gulp-html-beautify": "^1.0.1",
     "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.2",
@@ -56,6 +58,7 @@
     "gulp-rev-collector": "^1.3.1",
     "gulp-sass": "^3.1.0",
     "gulp-sequence": "^0.4.6",
+    "gulp-sftp": "^0.1.5",
     "gulp-strip-debug": "^1.1.0",
     "gulp-uglify": "^3.0.0",
     "gulp-useref": "^3.1.4",

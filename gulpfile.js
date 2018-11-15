@@ -258,6 +258,7 @@ gulp.task('server', () => {
   })
 })
 
+
 gulp.task('build', () => {
   const task = ['html', 'styles', 'script', 'sprite', 'images', 'static']
   cbTask(task).then(() => {
@@ -271,12 +272,25 @@ gulp.task('build', () => {
   })
 })
 
+/**
+ * 自动部署到服务器
+ */
+gulp.task('upload', function (callback) {
+  console.log(colors.info(`
+        -----------------------------
+              正在部署到服务器上
+        -----------------------------`));
+  gulp.src('.' + config.sftp.publicPath + '**')
+    .pipe($.sftp(Object.assign(config.sftp.devDist, { callback })));
+});
+
 gulp.task('default', () => {
   console.log(colors.info(
     `
   Build Setup
     开发环境： npm run dev
     生产环境： npm run build
+    部署代码： npm run upload
     打包压缩： npm run zip
     编译页面： gulp html
     编译脚本： gulp script

@@ -1,13 +1,14 @@
 /*!
  * confing/index.js -https://github.com/Ikarows
  * Version - 1.0.0
- * author: Cosplay
- * time: 2018-04-11
+ * author: Ikarows
+ * edit: 2018-11-15
  * Copyright (c) 2018 Daniel Eden
  */
 
 const path = require('path')
 const server = require('./server')
+const sftp = require('./sftp')
 
 function resolveDev(dir) {
   return path.join(__dirname, '../src/', dir)
@@ -48,7 +49,8 @@ module.exports = {
   },
 
   server,
+  sftp,
   useEslint: false,
-  useWebpack: false,
+  useWebpack: true,
   productionZip: false
 }
