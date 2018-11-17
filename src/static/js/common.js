@@ -5,12 +5,13 @@
  * date: xxx
  * Copyright (c) 2018 Daniel Eden
  */
-import {lib, url} from './lib';
+import { lib, url } from './libs';
 
 class common {
     
     constructor() {
-        lib.setFontSize(); //启用设置字体大小
+        //启用设置字体大小
+        lib.setFontSize(); 
     }
 }
 
