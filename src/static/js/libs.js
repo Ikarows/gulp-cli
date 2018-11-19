@@ -148,15 +148,53 @@ class libs {
 
 class request {
     init(type, url, params) {
-
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                type: type,
+                url: url,
+                data: params,
+                dataType: "json",
+                beforeSend: function (request) {
+                    if(sessionStorage.token){
+                        request.setRequestHeader("Auth-Token", sessionStorage.token);
+                    }
+                },
+                success: function (res) {
+                    resolve(res);
+                    /*if (res.code === 1) {
+                        
+                    }else if(res.code === 2){
+                        layer.open({
+                            content: "登录信息失效，请退出重新登录。",
+                            skin: 'msg',
+                            shadeClose: false
+                        });
+                    }else{
+                        layer.open({
+                            content: `error code ${res.code}`,
+                            skin: 'msg',
+                            shadeClose: false
+                        });
+                    }*/
+                },
+                error: function (error) {
+                    reject(error);
+                    /*layer.open({
+                        content: "请求失败，请重试！",
+                        skin: 'msg',
+                        time: 2
+                    });*/
+                }
+            });
+        });
     }
 
     get(url, parmas) {
-        this.init("GET", url, parmas);
+        return this.init("GET", url, parmas);
     }
 
     post(url, parmas) {
-        this.init("POST", url, parmas);
+        return this.init("POST", url, parmas);
     }
 }
 
