@@ -39,6 +39,7 @@
     "gulp-babel": "^7.0.0",
     "gulp-batch": "^1.0.5",
     "gulp-cache": "^1.0.1",
+    "gulp-changed": "^3.2.0",
     "gulp-clean-css": "^3.9.0",
     "gulp-ejs": "^3.1.1",
     "gulp-eslint": "^4.0.0",

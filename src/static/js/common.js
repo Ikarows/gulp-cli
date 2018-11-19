@@ -11,7 +11,7 @@ class common {
     
     constructor() {
         //启用设置字体大小
-        lib.setFontSize(); 
+        lib.setFontSize();
     }
 }
 

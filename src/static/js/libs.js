@@ -148,7 +148,7 @@ class libs {
 
 class request {
     init(type, url, params) {
-        console.log(`1111`)
+
     }
 
     get(url, parmas) {
