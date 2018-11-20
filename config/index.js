@@ -52,5 +52,6 @@ module.exports = {
   sftp,
   useEslint: false,
   useWebpack: true,
-  productionZip: false
+  productionZip: false,
+  autoUploadSftp: false,
 }

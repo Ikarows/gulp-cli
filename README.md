@@ -125,6 +125,13 @@ module.exports = {
 * 执行 npm run upload 会自动把dist文件部署到服务器上
 ```
 
+- config/index.js 文件
+
+```
+autoUploadSftp: false // 编译后是否自动部署代码
+```
+
+
 ## 代理模式
 
 -   config/index.js 文件中配置

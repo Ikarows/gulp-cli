@@ -266,7 +266,16 @@ gulp.task('build', () => {
     const task = ['html', 'styles', 'script', 'sprite', 'images', 'static']
     cbTask(task).then(() => {
         console.log(colors.cyan('  Build complete.\n'))
-
+        
+        if (config.autoUploadSftp) {
+            gulp.start('upload', () => {
+                console.log(colors.info(`
+                -----------------------------
+                      代码自动部署完成
+                -----------------------------`))
+            })
+        }
+        
         if (config.productionZip) {
             gulp.start('zip', () => {
                 console.log(colors.cyan('  Zip complete.\n'))
