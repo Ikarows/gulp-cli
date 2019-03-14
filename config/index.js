@@ -54,4 +54,5 @@ module.exports = {
   useWebpack: true,
   productionZip: false,
   autoUploadSftp: false,
+  px3rem: false,
 }

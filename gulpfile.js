@@ -16,7 +16,7 @@ const gulp = require('gulp')
 const pngquant = require('imagemin-pngquant')
 const del = require('del')
 const runSequence = require('run-sequence')
-
+const px2rem = require('gulp-px2rem-plugin')
 const colors = require('colors');
 colors.setTheme({
     silly: 'rainbow',
@@ -124,6 +124,13 @@ gulp.task('revHtmlCss', function () {
 gulp.task('less', () => {
     return gulp.src(config.dev.less)
         .pipe($.plumber(onError))
+        .pipe($.if(config.px3rem, $.px3rem({
+            baseDpr: 1,             // base device pixel ratio (default: 2)
+            threeVersion: true,    // whether to generate @1x, @2x and @3x version (default: false)
+            remVersion: true,       // whether to generate rem version (default: true)
+            remUnit: 50,            // rem unit value (default: 75)
+            remPrecision: 4         // rem precision (default: 6)
+        })))
         .pipe($.less())
         .pipe($.if(condition, $.cleanCss({
             debug: true
@@ -135,6 +142,13 @@ gulp.task('less', () => {
 gulp.task('sass', () => {
     return gulp.src(config.dev.sass)
         .pipe($.plumber(onError))
+        .pipe($.if(config.px3rem, $.px3rem({
+            baseDpr: 1,             // base device pixel ratio (default: 2)
+            threeVersion: true,    // whether to generate @1x, @2x and @3x version (default: false)
+            remVersion: true,       // whether to generate rem version (default: true)
+            remUnit: 50,            // rem unit value (default: 75)
+            remPrecision: 4         // rem precision (default: 6)
+        })))
         .pipe($.sass())
         .pipe($.if(condition, $.cleanCss({
             debug: true

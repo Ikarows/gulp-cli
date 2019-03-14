@@ -169,4 +169,15 @@ config/index.js 文件
 useWebpack: true // 是否启用webpack
 ```
 
+## 使用 px转rem
+
+config/index.js 文件
+
+```
+px3rem: false // 是否启用px转rem
+
+-不打算转换原始值，例如：1px border，/*no*/声明后添加
+-打算强制使用px，例如：font-size，/*px*/在声明后添加
+```
+
 For a detailed explanation on how things work, check out the guide [gulp](https://www.gulpjs.com.cn/).
